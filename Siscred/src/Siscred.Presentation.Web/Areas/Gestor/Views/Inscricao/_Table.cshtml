@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Siscred.Application.ViewModel.InscricaoVm>
+
+<div class="dataTable_wrapper">
+    <div class="table-responsive">
+        <table class="datatables table-bordered display table" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>Protocolo</th>
+                    <th>Razão Social</th>                   
+                    <th>CNPJ</th>
+                    <th>Andamento</th>
+                    <th>Funções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Protocolo</td>
+                            <td>@item.RazaoSocial</td>                           
+                            <td>@item.Cnpj</td>
+                            <td id="@($"situacao{item.Id}")" style="padding-bottom: 0px">
+                                @Html.Partial("_Situacao", item.SituacaoInscricao)
+                            </td>
+                            <td class="text-nowrap" width="10">
+                                <button class="btn btn-primary btn-sm" title="Visualizar" onclick="InscricaoVisualizacao.Eventos.Visualizar(@item.Id, this)">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modalExibirInscricao" data-url="@Url.Action("ObterInscricao", "Inscricao")" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>

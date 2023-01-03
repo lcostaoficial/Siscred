@@ -1,0 +1,50 @@
+﻿@using Siscred.Application.ViewModel
+@model InscricaoVm
+@{
+    ViewBag.Title = "Inscrição";
+}
+
+@section styles {
+    @Styles.Render("~/Content/bootstrap-select-css")
+    @Styles.Render("~/Content/wizard-css")
+}
+
+<div class="row">
+    <section>
+        <div class="wizard">
+            @Html.Partial("_Abas")
+            @using (Html.BeginForm("Index", "Inscricao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("EditalId", (int)ViewBag.Edital.Id)
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="informacoes">
+                        @Html.Partial("_Edital")
+                        @Html.Partial("_Empresa")
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-lg btn-primary next-info">Avançar</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="anexos">
+                        @Html.Partial("_Arquivos", (IEnumerable<TipoArquivoVm>)ViewBag.ArquivosExigidos)
+                        <ul class="list-inline pull-right">
+                            <li><button type="button" class="btn btn-lg btn-primary next-file">Avançar</button></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="completo">
+                        @Html.Partial("_Termos")
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/bootstrap-select-js")
+    @Scripts.Render("~/bundles/maskedinput-js")
+    @Scripts.Render("~/bundles/maskmoney-js")
+    @Scripts.Render("~/bundles/globalmask-js")
+    @Scripts.Render("~/bundles/inscricao-js")
+}

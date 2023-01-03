@@ -1,0 +1,42 @@
+﻿@model Siscred.Application.ViewModel.AlterarSenhaVm
+
+@using (Html.BeginForm("AlterarSenha", "Conta", FormMethod.Post, new { id = "formAlterarSenha", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alteração de senha</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SenhaAntiga)
+                    @Html.PasswordFor(m => m.SenhaAntiga, new { @class = "form-control", required = "" })
+                    @Html.ValidationMessageFor(m => m.SenhaAntiga)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SenhaNova)
+                    @Html.PasswordFor(m => m.SenhaNova, new { @class = "form-control", required = "" })
+                    @Html.ValidationMessageFor(m => m.SenhaNova)
+                </div>
+                <div class="form-group">
+                    <img src="@Url.Action("GetCaptcha","Captcha")" />
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "Digite o código exibido acima", required = "" })
+                    @Html.ValidationMessageFor(m => m.Captcha)
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-confirmar" type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <span class="ui-button-text">Confirmar</span>
+                </button>
+                <button id="btn-cancelar" type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <span class="ui-button-text">Cancelar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+}

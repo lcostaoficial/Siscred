@@ -1,0 +1,91 @@
+﻿@using Siscred.Application.ViewModel
+@model IEnumerable<ProfissionalIndicadoVm>
+@{
+    ViewBag.Title = "Indicados";
+}
+
+@section styles {
+    @Styles.Render("~/Content/indicado-css")
+}
+
+<div class="row" style="padding-top: 80px">
+    <div class="col-md-10 col-md-offset-1">
+        <table style="background-color: #F2F9FF; border-radius: 10px; margin-bottom: 20px">
+            <tbody>
+                <tr>
+                    <td style="font-size: 48px; opacity: 0.25; padding: 20px; padding-top: 15px; padding-right: 0px; vertical-align: top"><i class="fa fa-info-circle"></i></td>
+                    <td style="padding: 20px">
+                        <p>
+                            <strong>Atenção</strong><br>
+                            Nesta etapa da inscrição você deve inserir todos os profissionais indicados com a sua respectiva documentação e quando terminar clique no botão <kbd>Finalizar Inscrição</kbd> para que o processo seja finalizado. Você deve atentar-se em adicionar no mínimo 1 profissional indicado e no máximo 16.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Profissionais indicados</h3>
+                    </div>
+                    <div class="col col-xs-6 text-right">
+                        <a class="btn btn-warning btn-create" href="@Url.Action("Adicionar", new { editalId = (int)ViewBag.Edital.Id })">Novo Indicado</a>
+                        <button class="btn btn-success btn-create" onclick="Indicado.confirmFinalization(event, this)" data-finalization="@Url.Action("Finalizar", new { editalId = (int)ViewBag.Edital.Id })">
+                            Finalizar Inscrição
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-list">
+                    @if (Model != null && Model.Any())
+                    {
+                        <thead>
+                            <tr>
+                                <th><em class="fa fa-cog"></em></th>
+                                <th class="hidden-xs">Ordem</th>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Tipo de indicação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Select((value, i) => new { i, value }))
+                            {
+                                <tr>
+                                    <td align="center">
+                                        <button class="btn btn-danger" onclick="Indicado.confirmExclusion(event, this)" title="Remover" data-remove="@Url.Action("Excluir", new { editalId = (int)ViewBag.Edital.Id, profissionalIndicadoId = item.value.Id })" data-togle="tooltip">
+                                            <em class="fa fa-trash"></em>
+                                        </button>
+                                    </td>
+                                    <td class="hidden-xs">@(item.i + 1)</td>
+                                    <td>@item.value.Nome</td>
+                                    <td>@item.value.Cpf</td>
+                                    <td>@item.value.TipoIndicado</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody>
+                            <tr>
+                                <td colspan="4">Nenhum profissional indicado cadastrado!</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/indicado-js")
+}

@@ -1,0 +1,64 @@
+﻿@using Siscred.Infra.CrossCutting.Uploads
+@using System.Web.Script.Serialization
+@using Siscred.Application.ViewModel
+@model IEnumerable<TipoArquivoVm>
+@{
+    var extensions = new JavaScriptSerializer().Serialize(InscricaoConfigUpload.ValidExtensions);
+    var maximumSize = InscricaoConfigUpload.SizeInBytesMax;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Documentação de Habilitação Jurídica
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model.Select((value, i) => new { i, value }))
+                    {
+                        <div class="form-group col-md-12">
+                            <label>
+                                @($"{item.value.Descricao} ({(item.value.Obrigatorio ? "Obrigatório" : "Não obrigatório")})")
+                                @if (!string.IsNullOrEmpty(item.value.Modelo))
+                                {
+                                    @Html.Raw("-") <a target="_blank" href="@Url.Content(item.value.Modelo)">Realizar download do modelo</a>
+                                }
+                            </label>
+                            <div class="input-group input-file">
+                                <div class="form-control caption"></div>
+                                <span class="input-group-addon">
+                                    <a class="btn btn-success" href="javascript:;">
+                                        Anexar
+                                        <input class="file"
+                                               value=""
+                                               type="file"
+                                               name="Arquivos[@item.i].ArquivoBinario"
+                                               id="Arquivos[@item.i].ArquivoBinario"
+                                               data-extensions="@extensions"
+                                               data-maximumsize="@maximumSize"
+                                               data-required="@item.value.Obrigatorio.ToString().ToLower()">
+                                        <input value="@item.value.Id" type="hidden" name="Arquivos[@item.i].TipoArquivoId" id="Arquivos[@item.i].TipoArquivoId" />
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                        if (!string.IsNullOrEmpty(item.value.Observacao))
+                        {
+                            <div class="form-group col-md-12">
+                                <div class="alert alert-info">
+                                    <strong>Nota:</strong> @Html.Raw(item.value.Observacao)
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <p>Nenhum arquivo exigido!</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

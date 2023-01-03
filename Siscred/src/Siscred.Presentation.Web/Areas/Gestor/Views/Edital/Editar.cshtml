@@ -1,0 +1,42 @@
+﻿@model Siscred.Application.ViewModel.EditalVm
+@{
+    ViewBag.Title = "Editais";
+    ViewBag.Subtitle = "Editar";
+}
+
+@section styles {
+    @Styles.Render("~/Content/bootstrap-select-css")
+    @Styles.Render("~/Content/datapicker-css")
+}
+
+@Html.Partial("_Title")
+
+<div class="row panel-position">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @ViewBag.Subtitle
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @using (Html.BeginForm("Editar", "Edital", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.Partial("_Form")
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/bootstrap-select-js")
+    @Scripts.Render("~/bundles/maskedinput-js")
+    @Scripts.Render("~/bundles/maskmoney-js")
+    @Scripts.Render("~/bundles/globalmask-js")
+    @Scripts.Render("~/bundles/datapicker-js")
+}

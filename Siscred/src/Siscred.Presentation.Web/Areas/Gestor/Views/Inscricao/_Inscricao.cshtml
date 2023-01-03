@@ -1,0 +1,278 @@
+﻿@model Siscred.Application.ViewModel.InscricaoVm
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                Informações da Inscrição
+                @switch (Model.SituacaoInscricao)
+                {
+                    case Siscred.Application.ViewModel.SituacaoInscricaoVm.Inscrito:
+                        <img src="@Url.Content("~/images/icon-inscrito.png")" width="25" height="25" />
+                        break;
+                    case Siscred.Application.ViewModel.SituacaoInscricaoVm.Pendente:
+                        <img src="@Url.Content("~/images/icon-pendente.png")" width="25" height="25" />
+                        break;
+                }
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#empresa" aria-controls="uploadTab" role="tab" data-toggle="tab">Empresa</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#indicados" aria-controls="browseTab" role="tab" data-toggle="tab">Profissionais Indicados</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#impressao" aria-controls="browseTab" role="tab" data-toggle="tab">Impressão</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#resultado" aria-controls="browseTab" role="tab" data-toggle="tab">Resultado</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="empresa">
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        @if (Model.InscricoesCidades != null && Model.InscricoesCidades.Any())
+                                        {
+                                            foreach (var preferenciaCidade in Model.InscricoesCidades.OrderBy(x => x.Preferencia))
+                                            {
+                                                <div class="form-group col-md-4">
+                                                    @Html.Label($"Microrregião {preferenciaCidade.Preferencia}º Opção")
+                                                    @Html.TextBox($"microrregiao_{preferenciaCidade.Preferencia}", preferenciaCidade.Cidade.Nome, new { @class = "form-control", @readonly = "" })
+                                                </div>
+                                            }
+                                        }
+                                        <div class="form-group col-md-4">
+                                            @Html.LabelFor(m => m.Cnpj)
+                                            @Html.TextBoxFor(m => m.Cnpj, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.LabelFor(m => m.RazaoSocial)
+                                            @Html.TextBoxFor(m => m.RazaoSocial, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.LabelFor(m => m.NomeFantasia)
+                                            @Html.TextBoxFor(m => m.NomeFantasia, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            @Html.LabelFor(m => m.ObjetoSocial)
+                                            @Html.TextAreaFor(m => m.ObjetoSocial, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            @Html.LabelFor(m => m.Experiencia)
+                                            @Html.TextAreaFor(m => m.Experiencia, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(m => m.ResponsavelLegal)
+                                            @Html.TextBoxFor(m => m.ResponsavelLegal, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(m => m.EmailCorporativo)
+                                            @Html.TextBoxFor(m => m.EmailCorporativo, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(m => m.Telefone)
+                                            @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.LabelFor(m => m.Celular)
+                                            @Html.TextBoxFor(m => m.Celular, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            @Html.LabelFor(m => m.Cep)
+                                            @Html.TextBoxFor(m => m.Cep, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            @Html.LabelFor(m => m.Rua)
+                                            @Html.TextBoxFor(m => m.Rua, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            @Html.LabelFor(m => m.Numero)
+                                            @Html.TextBoxFor(m => m.Numero, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            @Html.LabelFor(m => m.Bairro)
+                                            @Html.TextBoxFor(m => m.Bairro, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            @Html.LabelFor(m => m.Cidade)
+                                            @Html.TextBoxFor(m => m.Cidade, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            @Html.LabelFor(m => m.Estado)
+                                            @Html.TextBoxFor(m => m.Estado, new { @class = "form-control", @readonly = "" })
+                                        </div>
+                                        @if (Model.Arquivos != null && Model.Arquivos.Any())
+                                        {
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <h4>Documentação de Habilitação Jurídica</h4>
+                                                    <table class="table">
+                                                        <tbody>
+                                                            @foreach (var item in Model.Arquivos)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="glyphicon glyphicon-file"></span>
+                                                                        @item.TipoArquivo.Descricao
+                                                                    </td>
+                                                                    <td class="text-right text-nowrap">
+                                                                        <a target="_blank" href="@Url.Content(item.Caminho)" class="btn btn-xs btn-info">Visualizar</a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="indicados">
+                        @if (Model.ProfissionaisIndicados != null && Model.ProfissionaisIndicados.Any())
+                        {
+                            <div class="row" style="padding-top: 10px">
+                                <div class="col-md-12">
+                                    @foreach (var profissionais in Model.ProfissionaisIndicados)
+                                    {
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="form-group col-md-8">
+                                                    <label>Nome</label>
+                                                    <input type="text" class="form-control" value="@profissionais.Nome" readonly="">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>CPF</label>
+                                                    <input type="text" class="form-control" value="@profissionais.Cpf" readonly="">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    @if (profissionais.Arquivos != null && profissionais.Arquivos.Any())
+                                                    {
+                                                        <h4>Documentação de Qualificação Técnica</h4>
+                                                        <table class="table">
+                                                            <tbody>
+                                                                @foreach (var arquivos in profissionais.Arquivos)
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span class="glyphicon glyphicon-file"></span>
+                                                                            @arquivos.TipoArquivo.Descricao
+                                                                        </td>
+                                                                        <td class="text-right text-nowrap">
+                                                                            <a target="_blank" href="@Url.Content(arquivos.Caminho)" class="btn btn-xs btn-info">Visualizar</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row" style="padding-top: 10px">
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning">
+                                        <h4>A inscrição ainda possui profissionais indicados.</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="impressao">
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-md-12">
+                                @if (Model.SituacaoInscricao != Siscred.Application.ViewModel.SituacaoInscricaoVm.Pendente)
+                                {
+                                    <a class="btn btn-primary" href="@Url.Action("ImprimirDocumentos", "Inscricao", new { inscricaoId = Model.Id })" target="_blank">Imprimir documentos</a>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning">
+                                        <h4>Não é possível imprimir documentos de inscrições pendentes.</h4>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="resultado" data-url="@Url.Action("Aprovar", "Inscricao")" data-situacao="@Url.Action("Situacao", "Inscricao")">
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-md-12">
+                                @switch (Model.SituacaoInscricao)
+                                {
+                                    case Siscred.Application.ViewModel.SituacaoInscricaoVm.Inscrito:
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <form id="form-resultado">
+                                                    <div class="form-group col-md-12">
+                                                        @Html.LabelFor(m => m.Justificativa)
+                                                        @Html.TextAreaFor(m => m.Justificativa, new { @class = "form-control" })
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <button type="button" class="btn btn-success" onclick="InscricaoVisualizacao.Eventos.Aprovar(@Model.Id, '@Siscred.Application.ViewModel.SituacaoInscricaoVm.Homologado')">Aprovar</button>
+                                                        <button type="button" class="btn btn-danger" onclick="InscricaoVisualizacao.Eventos.Aprovar(@Model.Id, '@Siscred.Application.ViewModel.SituacaoInscricaoVm.Reprovado')">Reprovar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Siscred.Application.ViewModel.SituacaoInscricaoVm.Homologado:
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <form id="form-resultado">
+                                                    <div class="form-group col-md-12">
+                                                        @Html.LabelFor(m => m.Justificativa)
+                                                        @Html.TextAreaFor(m => m.Justificativa, new { @class = "form-control", @readonly = "" })
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Siscred.Application.ViewModel.SituacaoInscricaoVm.Reprovado:
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <form id="form-resultado">
+                                                    <div class="form-group col-md-12">
+                                                        @Html.LabelFor(m => m.Justificativa)
+                                                        @Html.TextAreaFor(m => m.Justificativa, new { @class = "form-control", @readonly = "" })
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        break;
+                                    case Siscred.Application.ViewModel.SituacaoInscricaoVm.Pendente:
+                                        <div class="col-md-12">
+                                            <div class="alert alert-warning">
+                                                <h4>Apenas inscrições finalizadas podem serem aprovadas.</h4>
+                                            </div>
+                                        </div>
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</div>

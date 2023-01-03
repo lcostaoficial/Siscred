@@ -1,0 +1,33 @@
+﻿@model Siscred.Application.ViewModel.LoginVm
+
+@using (Html.BeginForm("Autenticar", "Conta", FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail", required = "" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "" })
+            @Html.ValidationMessageFor(m => m.Senha)
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Acessar</button>
+            <a href="@Url.Action("Cadastrar", "Conta")" class="btn btn-primary">Cadastrar</a>           
+        </div>
+        <div class="form-group" style="text-align:center">
+            <div class="recoverpassword">
+                Esqueceu a sua senha?
+                <a id="btnRecuperarSenha" href="#">
+                    Clique aqui
+                </a>
+            </div>
+        </div>
+        <div class="alert alert-info" style="text-align:center">
+            <span>
+                <i class="glyphicon glyphicon-envelope"></i> credenciamento@ro.sebrae.com.br
+            </span>
+        </div>
+    </fieldset>
+}

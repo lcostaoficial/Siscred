@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Siscred.Application.ViewModel.EditalVm>
+
+<div class="dataTable_wrapper">
+    <div class="table-responsive">
+        <table class="datatables table-bordered display table" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Data de Publicação</th>
+                    <th>Data de Encerramento</th>
+                    <th>Funções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr @{ if (!item.Ativo) { @Html.Raw("style=\"background-color: lightgoldenrodyellow\"")  ; } }>
+                            <td>@item.Descricao</td>
+                            <td>@item.DataPublicacao.ToShortDateString()</td>
+                            <td>@item.DataEncerramento.ToShortDateString()</td>
+                            <td class="text-nowrap" width="10">
+                                <a class="btn btn-info btn-sm" title="Editar" href="@Url.Action("Editar", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn @(item.Ativo ? "btn-warning" : "btn-success") btn-sm" title="@(item.Ativo ? "Desativar" : "Ativar")" href="@Url.Action("Desativar", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="@(item.Ativo ? "fa fa-close" : "fa fa-check")" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model Siscred.Application.ViewModel.UsuarioVm
+@{
+    ViewBag.Title = "Cadastrar";   
+}
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">Cadastrar-se</div>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_FormCadastro")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/cadastrar-empresa-js")
+}

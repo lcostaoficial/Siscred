@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Siscred.Application.ViewModel.TipoArquivoVm>
+
+<div class="dataTable_wrapper">
+    <div class="table-responsive">
+        <table class="datatables table-bordered display table" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Observação</th>
+                    <th>Funções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr @{ if (!item.Ativo) { @Html.Raw("style=\"background-color: lightgoldenrodyellow\"")  ; } }>
+                            <td>@item.Descricao</td>
+                            <td>@item.Observacao</td>
+                            <td class="text-nowrap" width="10">
+                                <a class="btn btn-info btn-sm" title="Editar" href="@Url.Action("Editar", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn @(item.Ativo ? "btn-warning" : "btn-success") btn-sm" title="@(item.Ativo ? "Desativar" : "Ativar")" href="@Url.Action("Desativar", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="@(item.Ativo ? "fa fa-close" : "fa fa-check")" aria-hidden="true"></i>
+                                </a>
+                                <button onclick="TableData.confirmExclusion(event, this)" class="btn btn-danger btn-sm" title="Remover" data-remove="@Url.Action("Remover", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

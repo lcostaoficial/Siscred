@@ -1,0 +1,41 @@
+﻿@model Siscred.Application.ViewModel.UsuarioVm
+
+@using (Html.BeginForm("Cadastrar", "Conta", FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", placeholder = "Nome", required = "" })
+            @Html.ValidationMessageFor(m => m.Nome)
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail", required = "" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "" })
+            @Html.ValidationMessageFor(m => m.Senha)
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(m => m.SenhaConfirmada, new { @class = "form-control", placeholder = "Repetir senha", required = "" })
+            @Html.ValidationMessageFor(m => m.SenhaConfirmada)
+        </div>
+        <div class="form-group">
+            <img src="@Url.Action("GetCaptcha","Captcha")" />
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "Digite o código exibido acima", required = "" })
+            @Html.ValidationMessageFor(m => m.Captcha)
+        </div>
+        <div class="form-group">
+            <button id="btn-registrar" type="submit" class="btn btn-primary">
+                <i class="glyphicon glyphicon-ok"></i>
+                <span class="ui-button-text">Registrar</span>
+            </button>
+            <a id="btn-retornar" href="@Url.Action("Autenticar", "Conta")" class="btn btn-warning">
+                <i class="glyphicon glyphicon-share-alt"></i>
+                <span class="ui-button-text">Retornar</span>
+            </a>
+        </div>
+    </fieldset>
+}

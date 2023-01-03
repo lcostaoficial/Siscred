@@ -1,0 +1,21 @@
+﻿@using Siscred.Application.ViewModel
+@model SituacaoInscricaoVm
+
+<p>
+    @switch (Model)
+    {
+        case SituacaoInscricaoVm.Inscrito:
+            <img src="@Url.Content("~/images/icon-inscrito.png")" width="25" height="25" />
+            break;
+        case SituacaoInscricaoVm.Pendente:
+            <img src="@Url.Content("~/images/icon-pendente.png")" width="25" height="25" />
+            break;
+        case SituacaoInscricaoVm.Homologado:
+            <img src="@Url.Content("~/images/icon-aprovado.png")" width="25" height="25" />
+            break;
+        case SituacaoInscricaoVm.Reprovado:
+            <img src="@Url.Content("~/images/icon-reprovado.png")" width="25" height="25" />
+            break;
+    }
+    @Model
+</p>

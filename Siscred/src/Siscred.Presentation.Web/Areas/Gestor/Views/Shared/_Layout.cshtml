@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Sistema de Credenciamento - @ViewBag.Title</title>
+    @Styles.Render("~/Content/basic-css")
+    @Styles.Render("~/Content/gestor-css")
+    @Styles.Render("~/Content/sweetalert2-css")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-sebrae navbar-fixed-top" role="navigation">
+
+            <div class="navbar-header">
+                <a class="navbar-brand-sebrae" href="@Url.Action("Index", "Home")">
+                    <img src="~/images/logo-white.png" height="30" width="60" />
+                    Sistema de Credenciamento (Gestão)
+                </a>
+            </div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.Partial("_AccountMenu")
+            @Html.Partial("_Menu")
+        </nav>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div id="modalAlterarSenha" data-url="@Url.Action("AlterarSenha", "Conta", new { area = "" })" class="modal fade" aria-hidden="true"></div>
+    @Scripts.Render("~/bundles/basic-js")
+    @Scripts.Render("~/bundles/sweetalert2-js")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/alterar-senha-js")
+    @RenderSection("scripts", required: false)
+    @Html.Partial("_Message")
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Siscred.Application.ViewModel.EditalVm>
+@{
+    ViewBag.Title = "Editais disponíveis";
+}
+
+@section styles
+{
+    <style>
+        .container, .container-fluid {
+            margin-top: 15px;
+        }
+
+        tr > td.media-left {
+            width: 72px !important;
+            height: 30px;
+            padding: 0 10px;
+            background-color: #eee;
+        }
+
+        .table .media .media-body > span {
+            color: #999;
+        }
+
+        .table .media .media-body span strong {
+            color: #777;
+        }
+    </style>
+
+}
+
+@Html.Partial("_Title")
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table class="table table-hover table-striped ">
+                <tbody>
+                    @foreach (var edital in Model)
+                    {
+                        <tr class="media">
+                            <td class="media-body">
+                                <h4 class="media-heading font-yellow text-bold hidden-xs">
+                                    @edital.Descricao
+                                </h4>
+                                <div class="pull-left">
+                                    <p class="hidden-xs"><strong>Data de publicação:</strong> @edital.DataPublicacao.ToShortDateString()</p>
+                                    <p class="hidden-xs"><strong>Data de Encerramento:</strong> @edital.DataEncerramento.ToShortDateString()</p>
+                                </div>
+                                <class class="pull-right">
+                                    @if (edital.Inscricoes != null && edital.Inscricoes.Any())
+                                    {
+                                        var inscricao = edital.Inscricoes.FirstOrDefault();
+                                        switch (inscricao.SituacaoInscricao)
+                                        {
+                                            case Siscred.Application.ViewModel.SituacaoInscricaoVm.Inscrito:
+                                                <a href="@Url.Action("Index", "Inscricao", new { editalId = edital.Id })" class="btn btn-success">Acompanhar Inscrição</a>
+                                                break;
+                                            case Siscred.Application.ViewModel.SituacaoInscricaoVm.Homologado:
+                                                <a href="@Url.Action("Index", "Inscricao", new { editalId = edital.Id })" class="btn btn-success">Acompanhar Inscrição</a>
+                                                break;
+                                            case Siscred.Application.ViewModel.SituacaoInscricaoVm.Reprovado:
+                                                <a href="@Url.Action("Index", "Inscricao", new { editalId = edital.Id })" class="btn btn-success">Acompanhar Inscrição</a>
+                                                break;
+                                            case Siscred.Application.ViewModel.SituacaoInscricaoVm.Pendente:
+                                                <a href="@Url.Action("Index", "Inscricao", new { editalId = edital.Id })" class="btn btn-success">Continuar Inscrição</a>
+                                                break;
+                                            default:
+                                                <a href="@Url.Action("Index", "Inscricao", new { editalId = edital.Id })" class="btn btn-success">Inscrever-se</a>
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Index", "Inscricao", new { editalId = edital.Id })" class="btn btn-success">Inscrever-se</a>
+                                    }
+                                    <a href="@Url.Content(edital.AnexoEdital)" target="_blank" class="btn btn-primary">Visualizar Edital</a>
+                                </class>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <p>Nenhum edital disponível!</p>
+}

@@ -1,0 +1,27 @@
+﻿@using Siscred.Application.ViewModel
+@model InscricaoVm
+
+<div class="container" id="box" style="padding-top: 80px">
+    <div class="row well">
+        <h5>A sua empresa agora já se encontra inscrita neste edital e este é o seu comprovante de inscrição.</h5>
+        <ul>
+            <li><strong>Protocolo:</strong> @Model.Protocolo</li>
+            <li><strong>Empresa:</strong> @Model.RazaoSocial</li>
+            <li><strong>Responsável:</strong> @Model.ResponsavelLegal</li>
+            <li><strong>CNPJ:</strong> @Model.Cnpj</li>
+            <li><strong>Data de Inscrição:</strong> @Model.Data.ToShortDateString()</li>
+        </ul>
+        <center>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary hidden-print"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Voltar</a>
+            <button class="btn btn-primary hidden-print" onclick="myFunction()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</button>
+        </center>
+    </div>    
+</div>
+
+@section scripts {
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>
+}

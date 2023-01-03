@@ -1,0 +1,158 @@
+﻿@using Siscred.Infra.CrossCutting.Helpers
+@model Siscred.Application.ViewModel.InscricaoVm
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>@ViewBag.Subtitulo</title>
+    <style type="text/css" media="print">
+
+        div.page {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        caption {
+            display: table-caption;
+            text-align: left;
+            font-weight: bold;
+            font-size: 18px;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .logo {
+            text-align: center;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .title {
+            padding-left: 5px;
+            padding-right: 5px;
+            font-weight: bold;
+        }
+
+        .value {
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div id="top">
+            <div class="logo">
+                <img src="@HttpContext.Current.Request.GetFullUrl("~/images/logo-blue.png")" alt="Logo" />
+            </div>
+        </div>
+        <table style="border-collapse: collapse" border="1" cellspacing="1" cellpadding="1">
+            <caption>1. DADOS DA EMPRESA</caption>
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        <p class="title">Razão Social:</p>
+                        <p class="value">@Model.RazaoSocial</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p class="title">Nome Fantasia:</p>
+                        <p class="value">@Model.NomeFantasia</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="title">CNPJ:</p>
+                        <p class="value">@Model.Cnpj</p>
+                    </td>
+                    <td colspan="2">
+                        <p class="title">Responsável:</p>
+                        <p class="value">@Model.ResponsavelLegal</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p class="title">Objeto Social:</p>
+                        <p class="value">@Model.ObjetoSocial</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p class="title">Experiência:</p>
+                        <p class="value">@Model.Experiencia</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="title">E-mail:</p>
+                        <p class="value">@Model.EmailCorporativo</p>
+                    </td>
+                    <td>
+                        <p class="title">Telefone:</p>
+                        <p class="value">@Model.Telefone</p>
+                    </td>
+                    <td>
+                        <p class="title">Celular:</p>
+                        <p class="value">@Model.Celular</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="title">CEP:</p>
+                        <p class="value">@Model.Cep</p>
+                    </td>
+                    <td>
+                        <p class="title">Rua:</p>
+                        <p class="value">@Model.Rua</p>
+                    </td>
+                    <td>
+                        <p class="title">Número:</p>
+                        <p class="value">@Model.Numero</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="title">Bairro:</p>
+                        <p class="value">@Model.Bairro</p>
+                    </td>
+                    <td>
+                        <p class="title">Cidade:</p>
+                        <p class="value">@Model.Cidade</p>
+                    </td>
+                    <td>
+                        <p class="title">Estado:</p>
+                        <p class="value">@Model.Estado</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @if (Model.ProfissionaisIndicados != null && Model.ProfissionaisIndicados.Any())
+        {
+            <table style="border-collapse: collapse" border="1" cellspacing="1" cellpadding="1">
+                <caption>2. PROFISSIONAIS INDICADOS</caption>
+                <tbody>
+                    @foreach (var item in Model.ProfissionaisIndicados)
+                    {
+                        <tr>
+                            <td>
+                                <p class="title">Nome:</p>
+                                <p class="value">@item.Nome</p>
+                            </td>
+                            <td>
+                                <p class="title">CPF:</p>
+                                <p class="value">@item.Cpf</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>

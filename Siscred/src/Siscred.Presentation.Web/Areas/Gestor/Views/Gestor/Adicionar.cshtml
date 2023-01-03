@@ -1,0 +1,28 @@
+﻿@model Siscred.Application.ViewModel.GestorVm
+@{
+    ViewBag.Title = "Gestores";
+    ViewBag.Subtitle = "Adicionar";
+}
+
+@Html.Partial("_Title")
+
+<div class="row panel-position">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @ViewBag.Subtitle
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Partial("_Form")
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

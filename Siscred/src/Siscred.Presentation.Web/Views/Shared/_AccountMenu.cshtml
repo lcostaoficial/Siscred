@@ -1,0 +1,17 @@
+﻿@using Siscred.Infra.CrossCutting.Security
+
+<ul class="nav navbar-right navbar-top-links">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-user fa-fw"></i> @Account.Nome <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li>
+                <a id="btnAlterarSenha" href="#"><i class="fa fa-user fa-fw"></i> Alterar Senha</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Sair", "Conta", new { area = "" })"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+            </li>
+        </ul>
+    </li>
+</ul>

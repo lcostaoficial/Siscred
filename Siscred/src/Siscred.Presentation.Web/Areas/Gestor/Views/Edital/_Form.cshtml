@@ -1,0 +1,65 @@
+﻿@model Siscred.Application.ViewModel.EditalVm
+
+@Html.HiddenFor(m => m.AnexoEdital)
+@Html.HiddenFor(m => m.NomeOriginal)
+
+<div class="form-group col-md-12">
+    @Html.LabelFor(m => m.Descricao)
+    @Html.TextBoxFor(m => m.Descricao, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Descricao)
+</div>
+
+<div class="form-group col-md-4">
+    @Html.LabelFor(m => m.HabilitarMicrorregiao)
+    @Html.DropDownListFor(m => m.HabilitarMicrorregiao, new SelectList(
+    new[]
+    {
+        new { Value = "true", Text = "Sim" },
+        new { Value = "false", Text = "Não" },
+    },
+    "Value",
+    "Text"), new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.HabilitarMicrorregiao)
+</div>
+
+<div class="form-group col-md-4">
+    @Html.LabelFor(m => m.DataPublicacao)
+    @Html.TextBoxFor(m => m.DataPublicacao, new { @class = "form-control data" })
+    @Html.ValidationMessageFor(m => m.DataPublicacao)
+</div>
+<div class="form-group col-md-4">
+    @Html.LabelFor(m => m.DataEncerramento)
+    @Html.TextBoxFor(m => m.DataEncerramento, new { @class = "form-control data" })
+    @Html.ValidationMessageFor(m => m.DataEncerramento)
+</div>
+<div class="form-group col-md-12">
+    @Html.LabelFor(m => m.ArquivoEdital)
+    <div class="input-group input-file">
+        <div class="form-control">
+            <a href="@(Model != null && !string.IsNullOrWhiteSpace(Model.AnexoEdital) ? Url.Content(Model.AnexoEdital) : "#")" target="_blank">
+                @(Model != null && !string.IsNullOrWhiteSpace(Model.NomeOriginal) ? Model.NomeOriginal : string.Empty)
+            </a>
+        </div>
+        <span class="input-group-addon">
+            <a class="btn btn-success" href="javascript:;">
+                Anexar
+                <input value="" type="file" name="ArquivoEdital" id="ArquivoEdital" onchange="$(this).parent().parent().parent().find('.form-control').html($(this).val().match(/^.*\\(.*)$/)[1]);">
+            </a>
+        </span>
+    </div>
+    @Html.ValidationMessageFor(m => m.ArquivoEdital)
+    <small class="form-text text-muted">O formato deve ser *.pdf entretanto não é obrigatório.</small>
+</div>
+<div class="form-group col-md-12">
+    @Html.LabelFor(m => m.TiposArquivosIds)
+    @Html.ListBoxFor(x => x.TiposArquivosIds, new MultiSelectList(ViewBag.TiposArquivos, "Id", "Descricao"), new { @class = "form-control selectpicker", data_live_search = "true", title = "Selecione os tipos de arquivos...", data_size = "5" })
+    @Html.ValidationMessageFor(m => m.TiposArquivosIds)
+</div>
+<div class="form-group col-md-12">
+    @Html.LabelFor(m => m.CidadesIds)
+    @Html.ListBoxFor(x => x.CidadesIds, new MultiSelectList(ViewBag.Cidades, "Id", "Nome"), new { @class = "form-control selectpicker", data_live_search = "true", title = "Selecione as cidades abrangidas...", data_size = "5" })
+    @Html.ValidationMessageFor(m => m.CidadesIds)
+</div>
+<div class="form-group col-md-12">
+    @Html.Partial("_Button")
+</div>

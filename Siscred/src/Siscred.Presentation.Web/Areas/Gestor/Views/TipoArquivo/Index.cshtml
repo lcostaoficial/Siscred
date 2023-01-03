@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Siscred.Application.ViewModel.TipoArquivoVm>
+@{
+    ViewBag.Title = "Tipos de Anexos";
+    ViewBag.Subtitle = "Todos";
+}
+
+@section styles {
+    @Styles.Render("~/Content/datatables-css")
+}
+
+@Html.Partial("_Title")
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title pull-left" style="padding-top: 7.5px;">@ViewBag.Subtitle</h4>
+                <div class="btn-group pull-right">
+                    <a href="@Url.Action("Adicionar")" class="btn btn btn-primary btn-sm"><i class="fa fa-plus"></i> Novo</a>                  
+                </div>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_Table")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/datatables-js")
+    @Scripts.Render("~/bundles/table-data-js")
+}

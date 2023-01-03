@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Siscred.Application.ViewModel.UsuarioVm>
+
+<div class="dataTable_wrapper">
+    <div class="table-responsive">
+        <table class="datatables table-bordered display table" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Funções</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr @{ if (!item.Ativo) { @Html.Raw("style=\"background-color: lightgoldenrodyellow\"")  ; } }>
+                            <td>@item.Nome</td>
+                            <td>@item.Email</td>
+                            <td class="text-nowrap" width="10">                               
+                                <a class="btn @(item.Ativo ? "btn-warning" : "btn-success") btn-sm" title="@(item.Ativo ? "Desativar" : "Ativar")" href="@Url.Action("Desativar", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="@(item.Ativo ? "fa fa-close" : "fa fa-check")" aria-hidden="true"></i>
+                                </a>
+                                <button onclick="TableData.confirmExclusion(event, this)" class="btn btn-danger btn-sm" title="Remover" data-remove="@Url.Action("Remover", new { id = item.Id })" data-togle="tooltip">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

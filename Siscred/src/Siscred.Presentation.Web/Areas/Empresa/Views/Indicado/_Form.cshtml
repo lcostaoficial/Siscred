@@ -1,0 +1,21 @@
+﻿@using Siscred.Application.ViewModel
+@model ProfissionalIndicadoVm
+
+@Html.Hidden("EditalId", (int)ViewBag.Edital.Id)
+@Html.Hidden("InscricaoId", (int)ViewBag.Inscricao.Id)
+
+<div class="form-group col-md-6">
+    @Html.LabelFor(m => m.Nome)
+    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Nome)
+</div>
+<div class="form-group col-md-4">
+    @Html.LabelFor(m => m.Cpf)
+    @Html.TextBoxFor(m => m.Cpf, new { @class = "form-control cpf", data_url = Url.Action("ValidarCpf", "Indicado", new { area = "Empresa" }) })
+    @Html.ValidationMessageFor(m => m.Cpf)
+</div>
+<div class="form-group col-md-2">
+    @Html.LabelFor(m => m.TipoIndicado)
+    @Html.EnumDropDownListFor(m => m.TipoIndicado, "Selecione...", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.TipoIndicado)
+</div>
